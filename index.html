@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Garble — Wavecrusher</title>
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --bg: #111111;
+                --surface: #1a1a1a;
+                --border: #242424;
+                --text: #e0e0e0;
+                --muted: #9e9e9e;
+                --dim: #2a2a2a;
+                --yellow: #f5a623;
+                --blue: #7ab3e0;
+                --mono: 'Menlo', Courier, monospace;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--mono);
+                font-size: clamp(0.875rem, 1.5vw, 1rem);
+                line-height: 1.7;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* ── PRISM HERO ── */
+            .prism-hero {
+                width: 100%;
+                height: 120px;
+                display: block;
+                position: relative;
+            }
+
+            /* ── NAV ── */
+            nav {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px 40px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-wordmark {
+                font-size: 1.0625rem;
+                font-weight: 700;
+                letter-spacing: 0.03em;
+                color: var(--text);
+            }
+
+            .nav-wordmark em {
+                font-style: normal;
+                color: var(--yellow);
+            }
+
+            .nav-tag {
+                font-size: 0.825rem;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+            /* ── HERO TEXT ── */
+            .hero {
+                padding: 80px 40px 64px;
+                max-width: 720px;
+            }
+
+            .hero-eyebrow {
+                font-size: 0.75rem;
+                letter-spacing: 0.28em;
+                text-transform: uppercase;
+                color: var(--blue);
+                margin-bottom: 20px;
+            }
+
+            .hero-title {
+                font-size: clamp(42px, 8vw, 72px);
+                font-weight: 700;
+                line-height: 1;
+                letter-spacing: -0.01em;
+                margin-bottom: 24px;
+                color: var(--text);
+            }
+
+            .hero-title em {
+                font-style: normal;
+                color: var(--yellow);
+            }
+
+            .hero-sub {
+                font-size: 0.9375rem;
+                color: var(--text);
+                max-width: 480px;
+                line-height: 1.8;
+                margin-bottom: 40px;
+            }
+
+            .hero-sub strong {
+                color: var(--yellow);
+                font-weight: 400;
+            }
+
+            .btn-download {
+                display: inline-block;
+                background: var(--yellow);
+                color: #111;
+                font-family: var(--mono);
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 14px 32px;
+                border-radius: 2px;
+                transition: opacity 0.15s, transform 0.15s;
+            }
+
+            .btn-download:hover {
+                opacity: 0.88;
+                transform: translateY(-1px);
+            }
+
+            .btn-note {
+                display: block;
+                font-size: 0.6875rem;
+                letter-spacing: 0.1em;
+                color: var(--muted);
+                margin-top: 10px;
+                text-transform: uppercase;
+            }
+
+            /* ── DIVIDER ── */
+            .divider {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 0 40px;
+            }
+
+            /* ── LORE ── */
+            .lore {
+                padding: 72px 40px;
+                max-width: 680px;
+            }
+
+            .section-label {
+                font-size: 0.8rem;
+                letter-spacing: 0.3em;
+                text-transform: uppercase;
+                color: var(--blue);
+                margin-bottom: 24px;
+            }
+
+            .lore p {
+                font-size: 1rem;
+                color: var(--text);
+                line-height: 1.9;
+                margin-bottom: 16px;
+            }
+
+            .lore p strong {
+                color: var(--yellow);
+                font-weight: 400;
+            }
+
+            .lore p em {
+                font-style: normal;
+                color: var(--yellow);
+            }
+
+            /* ── WHAT IT IS ── */
+            .what {
+                padding: 0 40px 72px;
+                max-width: 680px;
+            }
+
+            .what-block {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                padding: 28px 32px;
+                margin-bottom: 12px;
+            }
+
+            .what-block h3 {
+                font-size: 0.6875rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--yellow);
+                margin-bottom: 8px;
+                font-weight: 700;
+            }
+
+            .what-block p {
+                font-size: 1rem;
+                color: var(--text);
+                line-height: 1.75;
+            }
+
+            .what-block p strong {
+                color: var(--yellow);
+                font-weight: 400;
+            }
+
+            /* ── PARAMS ── */
+            .params {
+                padding: 0 40px 72px;
+            }
+
+            .params-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1px;
+                background: var(--border);
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            .param-cell {
+                background: var(--surface);
+                padding: 24px 24px 20px;
+            }
+
+            .param-name {
+                font-size: 0.75rem;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                color: var(--blue);
+                margin-bottom: 8px;
+            }
+
+            .param-range {
+                font-size: 1.125rem;
+                color: var(--text);
+                font-weight: 700;
+                margin-bottom: 6px;
+                letter-spacing: -0.01em;
+            }
+
+            .param-desc {
+                font-size: 1rem;
+                color: var(--text);
+                line-height: 1.6;
+            }
+
+            /* ── PRISM MINI (between sections) ── */
+            .prism-mini {
+                width: 100%;
+                height: 3px;
+                display: block;
+                margin: 0;
+            }
+
+            /* ── FOOTER ── */
+            footer {
+                border-top: 1px solid var(--border);
+                padding: 28px 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .footer-left {
+                font-size: 0.5625rem;
+                letter-spacing: 0.12em;
+                color: var(--muted);
+                text-transform: uppercase;
+            }
+
+            .footer-left em {
+                font-style: normal;
+                color: var(--yellow);
+            }
+
+            .footer-right {
+                font-size: 0.5625rem;
+                letter-spacing: 0.12em;
+                color: var(--muted);
+                text-transform: uppercase;
+            }
+
+            .footer-right a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+
+            .footer-right a:hover {
+                color: var(--text);
+            }
+
+            /* ── PLUGIN SCREENSHOT ── */
+            .plugin-preview {
+                padding: 0 40px 72px;
+            }
+
+            .plugin-frame {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                overflow: hidden;
+                max-width: 420px;
+            }
+
+            .plugin-frame canvas {
+                width: 100%;
+                height: 80px;
+                display: block;
+            }
+
+            .plugin-frame-inner {
+                padding: 18px 24px 20px;
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+
+            .pf-wordmark {
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--text);
+                letter-spacing: 0.02em;
+                line-height: 1;
+            }
+
+            .pf-wordmark em {
+                font-style: normal;
+                color: var(--yellow);
+            }
+
+            .pf-sub {
+                font-size: 0.5rem;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                color: var(--muted);
+                margin-top: 5px;
+            }
+
+            .pf-knobs {
+                display: flex;
+                gap: 16px;
+                align-items: center;
+            }
+
+            .pf-knob {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .pf-knob-label {
+                font-size: 0.4375rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+            /* ── RESPONSIVE ── */
+            @media (max-width: 600px) {
+
+                nav,
+                .hero,
+                .lore,
+                .what,
+                .params,
+                .plugin-preview,
+                footer {
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+
+                .divider {
+                    margin: 0 20px;
+                }
+
+                .hero {
+                    padding-top: 48px;
+                    padding-bottom: 48px;
+                }
+
+                .params-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .prism-animate {
+                    animation: none !important;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- HERO PRISM BAR -->
+        <canvas class="prism-hero" id="prism-hero" width="1200" height="120"></canvas>
+
+        <!-- NAV -->
+        <nav>
+            <div>
+                <div class="nav-wordmark">G<em>a</em>rble</div>
+            </div>
+            <div class="nav-tag">Free Download &nbsp;·&nbsp; CLAP &nbsp;·&nbsp; v1.0</div>
+        </nav>
+
+        <!-- HERO TEXT -->
+        <section class="hero">
+            <div class="hero-eyebrow">Free wavelet distortion plugin</div>
+            <h1 class="hero-title">W<em>a</em>vecrusher</h1>
+            <p class="hero-sub">
+                I made <strong>Garble</strong> from a compression algorithm I developed
+                during my PhD research.<br><br>
+                The original version was for robots communicating over unreliable
+                network links. This version runs on audio.<br><br>
+                It is close to bitcrushing in spirit, but it does not just reduce
+                every sample uniformly. Garble breaks the signal into wavelet
+                approximations, then lets you crush, quantise, and remove detail
+                at different resolutions.
+            </p>
+            <a class="btn-download" href="#download">Download Free</a>
+            <span class="btn-note">CLAP &nbsp;·&nbsp; Windows · macOS · Linux</span>
+        </section>
+
+        <hr class="divider" />
+
+        <!-- PLUGIN PREVIEW -->
+        <section class="plugin-preview" style="padding-top: 64px;">
+            <div class="section-label">The plugin</div>
+            <div class="plugin-frame">
+                <canvas id="prism-plugin" width="840" height="160"
+                    style="width:100%;height:80px;display:block;"></canvas>
+                <div class="plugin-frame-inner">
+                    <div>
+                        <div class="pf-wordmark">G<em>a</em>rble</div>
+                        <div class="pf-sub">Wavecrusher</div>
+                    </div>
+                    <div class="pf-knobs">
+                        <div class="pf-knob">
+                            <canvas width="48" height="48" id="pk0"></canvas>
+                            <div class="pf-knob-label">Levels</div>
+                        </div>
+                        <div class="pf-knob">
+                            <canvas width="48" height="48" id="pk1"></canvas>
+                            <div class="pf-knob-label">Bands</div>
+                        </div>
+                        <div class="pf-knob">
+                            <canvas width="48" height="48" id="pk2"></canvas>
+                            <div class="pf-knob-label">Quantise</div>
+                        </div>
+                        <div class="pf-knob">
+                            <canvas width="48" height="48" id="pk3"></canvas>
+                            <div class="pf-knob-label">Ratio</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider" />
+
+        <!-- LORE -->
+        <section class="lore">
+            <div class="section-label">Origin</div>
+            <p>
+                <strong>I originally built this technology for robotics research.</strong>
+                The problem was communication over unreliable links: robots still
+                need useful information when the network is slow, noisy, intermittent,
+                or degraded.
+            </p>
+            <p>
+                The compression approach keeps the coarse structure of a signal and
+                throws away detail when bandwidth is limited. At some point I wondered
+                what that would sound like on music. Garble is the result.
+            </p>
+            <p>
+                It uses a <strong>Haar wavelet transform</strong> to split audio into
+                coarse averages and detail bands. Then it quantises and drops parts
+                of that representation before reconstructing the signal.
+            </p>
+            <p>
+                The prism visuals are decorative, but they are not just decoration.
+                They are derived from the same wavelet-compression logic that powers
+                the plugin, so the animation is an echo of the algorithm rather than
+                pure ornament.
+            </p>
+            <p>
+                So yes, it can feel related to a bitcrusher. But the failure mode is
+                different. A normal bitcrusher reduces sample resolution directly.
+                Garble works on approximations of the signal. As you push it harder,
+                the fine detail disappears first and the larger-scale movement can remain.
+            </p>
+        </section>
+
+        <hr class="divider" />
+
+        <!-- WHAT IT IS -->
+        <section class="what" style="padding-top: 64px;">
+            <div class="section-label">What it does differently</div>
+
+            <div class="what-block">
+                <h3>Not normal bitcrushing</h3>
+                <p>
+                    A bitcrusher usually applies the same kind of reduction directly
+                    to the sample stream. Garble first transforms the signal into
+                    wavelet coefficients, then crushes that representation before
+                    decoding it back to audio.
+                </p>
+            </div>
+
+            <div class="what-block">
+                <h3>Resolution-based distortion</h3>
+                <p>
+                    Think of it less like lowering the bit depth of a waveform and more
+                    like listening to a progressively simplified version of the sound.
+                    The broad contour, envelope, and energy can survive while smaller
+                    detail is removed or quantised.
+                </p>
+            </div>
+
+            <div class="what-block">
+                <h3>Useful on resampling chains</h3>
+                <p>
+                    On some material it behaves like a broken codec. On other material
+                    it becomes a rough textural filter. On dense mixes, you can sometimes
+                    hear the highest-energy parts of the signal survive longest as the
+                    rest falls away.
+                </p>
+            </div>
+
+            <div class="what-block">
+                <h3>Real-time, per-block</h3>
+                <p>
+                    Garble runs live on the signal path. It processes blocks of audio,
+                    applies the wavelet compression step, and reconstructs the result
+                    with fixed host-reported latency.
+                </p>
+            </div>
+
+            <div class="clap-block">
+                <h3>CLAP plugin format</h3>
+                <p>
+                    Garble is made with <a href="https://github.com/free-audio/clap" target="_blank"
+                        rel="noopener noreferrer">CLAP</a>. It is free, open-source, and cross-platform.
+                    It runs on Windows, macOS, and Linux. VST3 version is provided, but it is actually a wrapped CLAP
+                    plugin.
+                </p>
+            </div>
+        </section>
+
+        <hr class="divider" />
+
+        <!-- PARAMS -->
+        <section class="params" style="padding-top: 64px;">
+            <div class="section-label" style="padding-bottom: 20px;">Parameters</div>
+            <div class="params-grid">
+                <div class="param-cell">
+                    <div class="param-name">Levels</div>
+                    <div class="param-range">1 — 10</div>
+                    <div class="param-desc">Depth of the wavelet decomposition. Higher values give Garble more
+                        resolution layers to work with.</div>
+                </div>
+                <div class="param-cell">
+                    <div class="param-name">Quantise</div>
+                    <div class="param-range">0.00 — 1.00</div>
+                    <div class="param-desc">Controls how aggressively small wavelet coefficients are pushed toward zero.
+                    </div>
+                </div>
+                <div class="param-cell">
+                    <div class="param-name">Ratio</div>
+                    <div class="param-range">1 — 32</div>
+                    <div class="param-desc">Compression target before quantisation. Higher values make the
+                        reconstruction more damaged.</div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider" />
+
+        <!-- DOWNLOAD -->
+        <section id="download" class="hero" style="padding-top: 64px; padding-bottom: 80px;">
+            <div class="section-label">Download</div>
+            <p class="hero-sub" style="margin-bottom: 32px;">
+                Free. No registration. No iLok.<br>
+                Drop the <strong>.clap</strong> file into your plugin folder and try it.
+            </p>
+            <div style="display:flex; gap: 16px; flex-wrap: wrap;">
+                <a class="btn-download" href="#">Windows .clap</a>
+                <a class="btn-download" href="#"
+                    style="background: var(--surface); color: var(--text); border: 1px solid var(--border);">macOS
+                    .clap</a>
+                <a class="btn-download" href="#"
+                    style="background: var(--surface); color: var(--text); border: 1px solid var(--border);">Linux
+                    .clap</a>
+            </div>
+            <span class="btn-note" style="margin-top: 14px;">
+                Requires a CLAP-compatible host &nbsp;·&nbsp; Bitwig, Reaper, FL Studio 21+, Ableton (via bridge)
+            </span>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-left">G<em>a</em>rble &nbsp;·&nbsp; Wavecrusher &nbsp;·&nbsp; v1.0</div>
+            <div class="footer-right">
+                <a href="https://nbembedded.com">nbembedded.com</a>
+            </div>
+        </footer>
+
+        <script>
+            (function () {
+
+                // ── shared helpers ──────────────────────────────────────────────
+                function hslToRgb(h, s, l) {
+                    h = ((h % 360) + 360) % 360; s /= 100; l /= 100;
+                    const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = l - c / 2;
+                    let r = 0, g = 0, b = 0;
+                    if (h < 60) { r = c; g = x; } else if (h < 120) { r = x; g = c; }
+                    else if (h < 180) { g = c; b = x; } else if (h < 240) { g = x; b = c; }
+                    else if (h < 300) { r = x; b = c; } else { r = c; b = x; }
+                    return [(r + m) * 255, (g + m) * 255, (b + m) * 255];
+                }
+
+                function drawPrismCanvas(canvas, progress, quantNorm, bandsVal, numRows) {
+                    const ctx = canvas.getContext('2d');
+                    const W = canvas.width, H = canvas.height;
+                    const breakX = Math.round(W * Math.min(1, progress));
+                    const crushBlock = Math.max(6, Math.round(quantNorm * 60 + 4));
+                    const rowH = H / numRows;
+                    const imgData = ctx.createImageData(W, H);
+                    const d = imgData.data;
+
+                    for (let row = 0; row < numRows; row++) {
+                        const hue = (row / numRows) * 300 + 10;
+                        const yStart = Math.round(row * rowH);
+                        const yEnd = Math.round((row + 1) * rowH);
+                        const rowActive = bandsVal === null || row < Math.round(bandsVal * numRows / 11);
+
+                        for (let x = 0; x < W; x++) {
+                            let r, g, b;
+                            if (x < breakX) {
+                                const microHue = hue + Math.sin(x * 0.06) * 18;
+                                const sat = rowActive ? 88 : 22;
+                                const lit = rowActive ? 46 : 20;
+                                ;[r, g, b] = hslToRgb(microHue, sat, lit);
+                            } else {
+                                const bx = Math.floor((x - breakX) / crushBlock) * crushBlock;
+                                const blockT = bx / Math.max(1, W - breakX);
+                                const avgHue = hue + blockT * 8;
+                                const sat = rowActive ? Math.max(10, 55 - blockT * 30) : 8;
+                                const lit = rowActive ? Math.max(12, 34 - blockT * 12) : 14;
+                                ;[r, g, b] = hslToRgb(avgHue, sat, lit);
+                            }
+                            for (let y = yStart; y < yEnd; y++) {
+                                const idx = (y * W + x) * 4;
+                                d[idx] = r; d[idx + 1] = g; d[idx + 2] = b; d[idx + 3] = 255;
+                            }
+                        }
+                    }
+                    ctx.putImageData(imgData, 0, 0);
+
+                    // Row dividers
+                    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+                    for (let row = 1; row < numRows; row++)
+                        ctx.fillRect(0, Math.round(row * rowH), W, 1);
+
+                    // Scan edge
+                    if (breakX < W) {
+                        ctx.fillStyle = 'rgba(255,255,255,0.07)';
+                        ctx.fillRect(breakX, 0, 1, H);
+                    }
+
+                    // Right fade
+                    const rFade = ctx.createLinearGradient(W * 0.72, 0, W, 0);
+                    rFade.addColorStop(0, 'rgba(17,17,17,0)');
+                    rFade.addColorStop(1, 'rgba(17,17,17,0.88)');
+                    ctx.fillStyle = rFade; ctx.fillRect(0, 0, W, H);
+
+                    // Bottom fade
+                    const bFade = ctx.createLinearGradient(0, H * 0.45, 0, H);
+                    bFade.addColorStop(0, 'rgba(17,17,17,0)');
+                    bFade.addColorStop(1, 'rgba(17,17,17,0.97)');
+                    ctx.fillStyle = bFade; ctx.fillRect(0, 0, W, H);
+                }
+
+                // ── HERO PRISM — animated load-in ──────────────────────────────
+                const heroCanvas = document.getElementById('prism-hero');
+                let heroProgress = 0;
+                let lastTime = null;
+
+                // Draw fully crushed state first, then animate the sharp zone sweeping in
+                drawPrismCanvas(heroCanvas, 0, 0.5, null, 14);
+
+                function animateHero(ts) {
+                    if (!lastTime) lastTime = ts;
+                    const dt = (ts - lastTime) / 1000;
+                    lastTime = ts;
+                    heroProgress = Math.min(1, heroProgress + dt * 0.55);
+                    drawPrismCanvas(heroCanvas, heroProgress, 0.35, null, 14);
+                    if (heroProgress < 1) requestAnimationFrame(animateHero);
+                }
+                requestAnimationFrame(animateHero);
+
+                // ── PLUGIN PREVIEW PRISM ───────────────────────────────────────
+                const pluginCanvas = document.getElementById('prism-plugin');
+                drawPrismCanvas(pluginCanvas, 1, 0.28, 7, 12);
+
+                // ── PLUGIN KNOBS ───────────────────────────────────────────────
+                const ACCENT = '#7ab3e0';
+                const TRACK = '#2a2a2a';
+                const KBG = '#1a1a1a';
+
+                const knobVals = [0.35, 0.55, 0.28, 0.22];
+
+                knobVals.forEach((val, i) => {
+                    const c = document.getElementById('pk' + i);
+                    if (!c) return;
+                    const ctx = c.getContext('2d');
+                    const cx = 24, cy = 24, r = 17;
+                    const s = Math.PI * 0.75, e = Math.PI * 2.25;
+                    const va = s + val * (e - s);
+                    ctx.clearRect(0, 0, 48, 48);
+                    ctx.beginPath(); ctx.arc(cx, cy, r, s, e);
+                    ctx.strokeStyle = TRACK; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.stroke();
+                    ctx.beginPath(); ctx.arc(cx, cy, r, s, va);
+                    ctx.strokeStyle = ACCENT; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.stroke();
+                    ctx.beginPath(); ctx.arc(cx, cy, 11, 0, Math.PI * 2);
+                    ctx.fillStyle = KBG; ctx.fill();
+                    const dx = cx + 9 * Math.cos(va), dy = cy + 9 * Math.sin(va);
+                    ctx.beginPath(); ctx.arc(dx, dy, 1.8, 0, Math.PI * 2);
+                    ctx.fillStyle = ACCENT; ctx.fill();
+                });
+
+                // ── SCROLL: re-trigger hero on revisit ─────────────────────────
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting && heroProgress >= 1) {
+                            heroProgress = 0;
+                            lastTime = null;
+                            requestAnimationFrame(animateHero);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                observer.observe(heroCanvas);
+
+            })();
+        </script>
+
+    </body>
+
+</html>
