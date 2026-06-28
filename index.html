@@ -376,7 +376,7 @@
                 The original version was for robots communicating over unreliable
                 network links. This version runs on audio.<br><br>
                 It is close to bitcrushing in spirit, but it does not just reduce
-                every sample uniformly. Garble breaks the signal into wavelet
+                the sample rate uniformly. Garble breaks the signal into wavelet
                 approximations, then lets you crush, quantise, and remove detail
                 at different resolutions. This distinction is why I call it a <strong>wavecrusher</strong> rather than a
                 bitcrusher.
@@ -515,22 +515,28 @@
                 <div style="display:flex; align-items:center; gap: 12px; flex-wrap:wrap;">
                     <span
                         style="font-size:0.6875rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); width:64px;">macOS</span>
-                    <a class="btn-download" href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-macos.zip">.clap</a>
-                    <a class="btn-download" href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-macos.zip"
+                    <a class="btn-download"
+                        href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-macos.zip">.clap</a>
+                    <a class="btn-download"
+                        href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-macos.zip"
                         style="background:var(--surface); color:var(--text); border:1px solid var(--border);">.vst3</a>
                 </div>
                 <div style="display:flex; align-items:center; gap: 12px; flex-wrap:wrap;">
                     <span
                         style="font-size:0.6875rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); width:64px;">Linux</span>
-                    <a class="btn-download" href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-linux.zip">.clap</a>
-                    <a class="btn-download" href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-linux.zip"
+                    <a class="btn-download"
+                        href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-linux.zip">.clap</a>
+                    <a class="btn-download"
+                        href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-linux.zip"
                         style="background:var(--surface); color:var(--text); border:1px solid var(--border);">.vst3</a>
                 </div>
                 <div style="display:flex; align-items:center; gap: 12px; flex-wrap:wrap;">
                     <span
                         style="font-size:0.6875rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); width:64px;">Windows</span>
-                    <a class="btn-download" href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-windows.zip">.clap</a>
-                    <a class="btn-download" href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-windows.zip"
+                    <a class="btn-download"
+                        href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-windows.zip">.clap</a>
+                    <a class="btn-download"
+                        href="https://github.com/nis057489/garble/releases/download/v0.9.0/Garble-v0.9.0-windows.zip"
                         style="background:var(--surface); color:var(--text); border:1px solid var(--border);">.vst3</a>
                 </div>
             </div>
@@ -546,7 +552,8 @@
                     macOS will warn that it can't verify Garble because it isn't signed with an Apple certificate.
                     To clear this, open Terminal and run:
                 </p>
-                <pre style="margin: 14px 0; font-size: 0.75rem; color: var(--text); background: var(--dim); border-radius: 3px; padding: 12px 14px; overflow-x: auto; line-height: 1.6;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
+                <pre
+                    style="margin: 14px 0; font-size: 0.75rem; color: var(--text); background: var(--dim); border-radius: 3px; padding: 12px 14px; overflow-x: auto; line-height: 1.6;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
 xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                 <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.9;">
                     Run whichever lines match the format you installed. You only need to do this once.
