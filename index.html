@@ -546,9 +546,10 @@
                     macOS will warn that it can't verify Garble because it isn't signed with an Apple certificate.
                     To clear this, open Terminal and run:
                 </p>
-                <pre style="margin: 14px 0; font-size: 0.75rem; color: var(--text); background: var(--dim); border-radius: 3px; padding: 12px 14px; overflow-x: auto; line-height: 1.6;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap</pre>
+                <pre style="margin: 14px 0; font-size: 0.75rem; color: var(--text); background: var(--dim); border-radius: 3px; padding: 12px 14px; overflow-x: auto; line-height: 1.6;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
+xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                 <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.9;">
-                    You only need to do this once after installing.
+                    Run whichever lines match the format you installed. You only need to do this once.
                 </p>
             </div>
 
