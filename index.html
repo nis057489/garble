@@ -540,6 +540,21 @@
             <div
                 style="margin-top: 40px; border: 1px solid var(--border); border-radius: 4px; padding: 24px 28px; max-width: 480px; background: var(--surface);">
                 <div
+                    style="font-size: 0.6875rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px;">
+                    macOS install note</div>
+                <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.9;">
+                    macOS will warn that it can't verify Garble because it isn't signed with an Apple certificate.
+                    To clear this, open Terminal and run:
+                </p>
+                <pre style="margin: 14px 0; font-size: 0.75rem; color: var(--text); background: var(--dim); border-radius: 3px; padding: 12px 14px; overflow-x: auto; line-height: 1.6;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap</pre>
+                <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.9;">
+                    You only need to do this once after installing.
+                </p>
+            </div>
+
+            <div
+                style="margin-top: 12px; border: 1px solid var(--border); border-radius: 4px; padding: 24px 28px; max-width: 480px; background: var(--surface);">
+                <div
                     style="font-size: 0.6875rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px;">
                     Courtesy notice</div>
                 <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.9;">
