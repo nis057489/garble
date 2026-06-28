@@ -311,66 +311,10 @@
                 padding: 0 40px 72px;
             }
 
-            .plugin-frame {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                overflow: hidden;
+            .plugin-preview img {
                 max-width: 420px;
-            }
-
-            .plugin-frame canvas {
-                width: 100%;
-                height: 80px;
                 display: block;
-            }
-
-            .plugin-frame-inner {
-                padding: 18px 24px 20px;
-                display: flex;
-                align-items: flex-end;
-                justify-content: space-between;
-            }
-
-            .pf-wordmark {
-                font-size: 22px;
-                font-weight: 700;
-                color: var(--text);
-                letter-spacing: 0.02em;
-                line-height: 1;
-            }
-
-            .pf-wordmark em {
-                font-style: normal;
-                color: var(--yellow);
-            }
-
-            .pf-sub {
-                font-size: 0.5rem;
-                letter-spacing: 0.22em;
-                text-transform: uppercase;
-                color: var(--muted);
-                margin-top: 5px;
-            }
-
-            .pf-knobs {
-                display: flex;
-                gap: 16px;
-                align-items: center;
-            }
-
-            .pf-knob {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-            }
-
-            .pf-knob-label {
-                font-size: 0.4375rem;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: var(--muted);
+                border-radius: 8px;
             }
 
             /* ── RESPONSIVE ── */
@@ -445,34 +389,7 @@
         <!-- PLUGIN PREVIEW -->
         <section class="plugin-preview" style="padding-top: 64px;">
             <div class="section-label">The plugin</div>
-            <div class="plugin-frame">
-                <canvas id="prism-plugin" width="840" height="160"
-                    style="width:100%;height:80px;display:block;"></canvas>
-                <div class="plugin-frame-inner">
-                    <div>
-                        <div class="pf-wordmark">G<em>a</em>rble</div>
-                        <div class="pf-sub">Wavecrusher</div>
-                    </div>
-                    <div class="pf-knobs">
-                        <div class="pf-knob">
-                            <canvas width="48" height="48" id="pk0"></canvas>
-                            <div class="pf-knob-label">Levels</div>
-                        </div>
-                        <div class="pf-knob">
-                            <canvas width="48" height="48" id="pk1"></canvas>
-                            <div class="pf-knob-label">Bands</div>
-                        </div>
-                        <div class="pf-knob">
-                            <canvas width="48" height="48" id="pk2"></canvas>
-                            <div class="pf-knob-label">Quantise</div>
-                        </div>
-                        <div class="pf-knob">
-                            <canvas width="48" height="48" id="pk3"></canvas>
-                            <div class="pf-knob-label">Ratio</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <img src="img/screenshot.png" alt="Garble plugin" />
         </section>
 
         <hr class="divider" />
@@ -717,36 +634,6 @@
                     if (heroProgress < 1) requestAnimationFrame(animateHero);
                 }
                 requestAnimationFrame(animateHero);
-
-                // ── PLUGIN PREVIEW PRISM ───────────────────────────────────────
-                const pluginCanvas = document.getElementById('prism-plugin');
-                drawPrismCanvas(pluginCanvas, 1, 0.28, 7, 12);
-
-                // ── PLUGIN KNOBS ───────────────────────────────────────────────
-                const ACCENT = '#7ab3e0';
-                const TRACK = '#2a2a2a';
-                const KBG = '#1a1a1a';
-
-                const knobVals = [0.35, 0.55, 0.28, 0.22];
-
-                knobVals.forEach((val, i) => {
-                    const c = document.getElementById('pk' + i);
-                    if (!c) return;
-                    const ctx = c.getContext('2d');
-                    const cx = 24, cy = 24, r = 17;
-                    const s = Math.PI * 0.75, e = Math.PI * 2.25;
-                    const va = s + val * (e - s);
-                    ctx.clearRect(0, 0, 48, 48);
-                    ctx.beginPath(); ctx.arc(cx, cy, r, s, e);
-                    ctx.strokeStyle = TRACK; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.stroke();
-                    ctx.beginPath(); ctx.arc(cx, cy, r, s, va);
-                    ctx.strokeStyle = ACCENT; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.stroke();
-                    ctx.beginPath(); ctx.arc(cx, cy, 11, 0, Math.PI * 2);
-                    ctx.fillStyle = KBG; ctx.fill();
-                    const dx = cx + 9 * Math.cos(va), dy = cy + 9 * Math.sin(va);
-                    ctx.beginPath(); ctx.arc(dx, dy, 1.8, 0, Math.PI * 2);
-                    ctx.fillStyle = ACCENT; ctx.fill();
-                });
 
                 // ── SCROLL: re-trigger hero on revisit ─────────────────────────
                 const observer = new IntersectionObserver(entries => {
