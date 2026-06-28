@@ -325,6 +325,7 @@
                 .lore,
                 .what,
                 .params,
+                .examples,
                 .plugin-preview,
                 footer {
                     padding-left: 20px;
@@ -485,6 +486,98 @@
                 margin-top: 8px;
                 margin-bottom: 0;
             }
+
+            /* ── EXAMPLES ── */
+            .examples {
+                padding: 0 40px 72px;
+                max-width: 680px;
+            }
+
+            .examples-note {
+                font-size: 0.8125rem;
+                color: var(--muted);
+                margin-bottom: 24px;
+                line-height: 1.7;
+            }
+
+            .sound-list {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .sound-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                padding: 16px 20px;
+            }
+
+            .sound-card-top {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 10px;
+            }
+
+            .play-btn {
+                flex-shrink: 0;
+                width: 32px;
+                height: 32px;
+                background: var(--dim);
+                border: 1px solid var(--border);
+                border-radius: 2px;
+                color: var(--yellow);
+                font-size: 0.6875rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.12s, border-color 0.12s;
+                font-family: var(--mono);
+                letter-spacing: 0;
+            }
+
+            .play-btn:hover {
+                background: var(--border);
+            }
+
+            .play-btn.playing {
+                background: rgba(245, 166, 35, 0.08);
+                border-color: rgba(245, 166, 35, 0.3);
+            }
+
+            .sound-title {
+                flex: 1;
+                font-size: 0.8125rem;
+                color: var(--text);
+                letter-spacing: 0.04em;
+            }
+
+            .sound-time {
+                font-size: 0.6875rem;
+                letter-spacing: 0.1em;
+                color: var(--muted);
+                white-space: nowrap;
+                min-width: 72px;
+                text-align: right;
+            }
+
+            .sound-progress-bar {
+                width: 100%;
+                height: 3px;
+                background: var(--dim);
+                border-radius: 2px;
+                cursor: pointer;
+            }
+
+            .sound-progress-fill {
+                height: 100%;
+                width: 0%;
+                background: var(--yellow);
+                border-radius: 2px;
+                pointer-events: none;
+            }
         </style>
     </head>
 
@@ -639,6 +732,27 @@
 
         <hr class="divider" />
 
+        <!-- EXAMPLES -->
+        <section class="examples" style="padding-top: 64px;">
+            <div class="section-label">Examples</div>
+            <p class="examples-note">Amen break run through Garble.</p>
+            <div class="sound-list">
+                <div class="sound-card" data-src="sounds/garble%20amen.mp3">
+                    <div class="sound-card-top">
+                        <button class="play-btn" aria-label="Play">&#9654;</button>
+                        <div class="sound-title">Amen Break — Garbled</div>
+                        <div class="sound-time">—</div>
+                    </div>
+                    <div class="sound-progress-bar">
+                        <div class="sound-progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+            <p>More examples coming soon!</p>
+        </section>
+
+        <hr class="divider" />
+
         <!-- DOWNLOAD -->
         <section id="download" class="hero" style="padding-top: 64px; padding-bottom: 80px;">
             <div class="section-label">Download</div>
@@ -688,14 +802,17 @@
                 <div class="install-panel active" id="tab-macos">
                     <ol class="install-steps">
                         <li>
-                            <div class="step-body">Double-click the downloaded <code>.zip</code> to unzip it. You'll get a file called <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).</div>
+                            <div class="step-body">Double-click the downloaded <code>.zip</code> to unzip it. You'll get
+                                a file called <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).</div>
                         </li>
                         <li>
                             <div class="step-body">
-                                Open Finder. In the menu bar, click <code>Go → Go to Folder…</code> (or press <code>Shift ⌘ G</code>). Paste the folder for the format you want to install:
+                                Open Finder. In the menu bar, click <code>Go → Go to Folder…</code> (or press
+                                <code>Shift ⌘ G</code>). Paste the folder for the format you want to install:
                                 <pre>~/Library/Audio/Plug-Ins/CLAP/
 ~/Library/Audio/Plug-Ins/VST3/</pre>
-                                If the folder doesn't exist, Finder will say so — just go up one level and create a new folder with that name.
+                                If the folder doesn't exist, Finder will say so — just go up one level and create a new
+                                folder with that name.
                             </div>
                         </li>
                         <li>
@@ -703,7 +820,10 @@
                         </li>
                         <li>
                             <div class="step-body">
-                                macOS will block Garble from running because it isn't signed with an Apple certificate. This is normal for indie plugins. To clear it, open Terminal (press <code>⌘ Space</code>, type <code>Terminal</code>, press Enter). Then copy and paste whichever line matches what you installed, and press Enter:
+                                macOS will block Garble from running because it isn't signed with an Apple certificate.
+                                This is normal for indie plugins. To clear it, open Terminal (press
+                                <code>⌘ Space</code>, type <code>Terminal</code>, press Enter). Then copy and paste
+                                whichever line matches what you installed, and press Enter:
                                 <pre>xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
 xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                                 You only need to do this once.
@@ -718,11 +838,14 @@ xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                 <div class="install-panel" id="tab-linux">
                     <ol class="install-steps">
                         <li>
-                            <div class="step-body">Extract the downloaded <code>.zip</code>. You'll get a file called <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).</div>
+                            <div class="step-body">Extract the downloaded <code>.zip</code>. You'll get a file called
+                                <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).</div>
                         </li>
                         <li>
                             <div class="step-body">
-                                Open your file manager and go to your home folder. The destination folders are hidden by default because their names start with a dot — enable "Show Hidden Files" first (usually <code>Ctrl H</code> or in the View menu). Then navigate into:
+                                Open your file manager and go to your home folder. The destination folders are hidden by
+                                default because their names start with a dot — enable "Show Hidden Files" first (usually
+                                <code>Ctrl H</code> or in the View menu). Then navigate into:
                                 <pre>~/.clap/
 ~/.vst3/</pre>
                                 If the folder doesn't exist, create it.
@@ -735,29 +858,40 @@ xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                             <div class="step-body">Open your DAW and rescan for plugins. Garble should appear.</div>
                         </li>
                     </ol>
-                    <p style="margin-top: 18px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px;">Prefer the terminal? <code>mkdir -p ~/.clap &amp;&amp; cp Garble.clap ~/.clap/</code></p>
+                    <p
+                        style="margin-top: 18px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px;">
+                        Prefer the terminal? <code>mkdir -p ~/.clap &amp;&amp; cp Garble.clap ~/.clap/</code></p>
                 </div>
 
                 <div class="install-panel" id="tab-windows">
                     <ol class="install-steps">
                         <li>
-                            <div class="step-body">Right-click the downloaded <code>.zip</code> and choose <code>Extract All</code>. You'll get a file called <code>Garble.vst3</code> or <code>Garble.clap</code>.</div>
+                            <div class="step-body">Right-click the downloaded <code>.zip</code> and choose
+                                <code>Extract All</code>. You'll get a file called <code>Garble.vst3</code> or
+                                <code>Garble.clap</code>.</div>
                         </li>
                         <li>
                             <div class="step-body">
-                                Open File Explorer. Click in the address bar at the top, paste the folder path for the format you want, and press Enter:
+                                Open File Explorer. Click in the address bar at the top, paste the folder path for the
+                                format you want, and press Enter:
                                 <pre>C:\Program Files\Common Files\VST3\
 C:\Program Files\Common Files\CLAP\</pre>
                             </div>
                         </li>
                         <li>
-                            <div class="step-body">Copy the plugin file into that folder. Windows may ask for administrator permission — click Yes.</div>
+                            <div class="step-body">Copy the plugin file into that folder. Windows may ask for
+                                administrator permission — click Yes.</div>
                         </li>
                         <li>
-                            <div class="step-body">Open your DAW and rescan for plugins. If Garble doesn't appear, check your DAW's plugin settings to see which folders it scans.</div>
+                            <div class="step-body">Open your DAW and rescan for plugins. If Garble doesn't appear, check
+                                your DAW's plugin settings to see which folders it scans.</div>
                         </li>
                     </ol>
-                    <p style="margin-top: 18px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px;">I don't have a Windows machine, so I haven't been able to test this myself. If something doesn't work, <a href="https://github.com/nis057489/garble/issues" target="_blank" rel="noopener noreferrer" style="color: var(--text);">let me know on GitHub</a>.</p>
+                    <p
+                        style="margin-top: 18px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px;">
+                        I don't have a Windows machine, so I haven't been able to test this myself. If something doesn't
+                        work, <a href="https://github.com/nis057489/garble/issues" target="_blank"
+                            rel="noopener noreferrer" style="color: var(--text);">let me know on GitHub</a>.</p>
                 </div>
             </div>
 
@@ -892,6 +1026,68 @@ C:\Program Files\Common Files\CLAP\</pre>
                     });
                 }, { threshold: 0.3 });
                 observer.observe(heroCanvas);
+
+                // ── AUDIO PLAYERS ────────────────────────────────────────────
+                var currentAudio = null;
+                var currentCard = null;
+
+                function fmtTime(s) {
+                    s = Math.floor(s || 0);
+                    return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+                }
+
+                document.querySelectorAll('.sound-card').forEach(function (card) {
+                    var audio = new Audio(card.dataset.src);
+                    var btn = card.querySelector('.play-btn');
+                    var fill = card.querySelector('.sound-progress-fill');
+                    var timeEl = card.querySelector('.sound-time');
+
+                    audio.addEventListener('loadedmetadata', function () {
+                        timeEl.textContent = '0:00 / ' + fmtTime(audio.duration);
+                    });
+
+                    audio.addEventListener('timeupdate', function () {
+                        var pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+                        fill.style.width = pct + '%';
+                        timeEl.textContent = fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+                    });
+
+                    audio.addEventListener('ended', function () {
+                        btn.innerHTML = '&#9654;';
+                        btn.classList.remove('playing');
+                        fill.style.width = '0%';
+                        timeEl.textContent = '0:00 / ' + fmtTime(audio.duration);
+                        currentAudio = null;
+                        currentCard = null;
+                    });
+
+                    card.querySelector('.sound-progress-bar').addEventListener('click', function (e) {
+                        if (!audio.duration) return;
+                        var rect = this.getBoundingClientRect();
+                        audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+                    });
+
+                    btn.addEventListener('click', function () {
+                        if (currentAudio && currentAudio !== audio) {
+                            currentAudio.pause();
+                            currentCard.querySelector('.play-btn').innerHTML = '&#9654;';
+                            currentCard.querySelector('.play-btn').classList.remove('playing');
+                        }
+                        if (audio.paused) {
+                            audio.play();
+                            btn.innerHTML = '&#9646;&#9646;';
+                            btn.classList.add('playing');
+                            currentAudio = audio;
+                            currentCard = card;
+                        } else {
+                            audio.pause();
+                            btn.innerHTML = '&#9654;';
+                            btn.classList.remove('playing');
+                            currentAudio = null;
+                            currentCard = null;
+                        }
+                    });
+                });
 
                 // ── INSTALL TABS ──────────────────────────────────────────────
                 document.querySelectorAll('.install-tab').forEach(function (btn) {
