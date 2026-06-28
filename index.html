@@ -438,6 +438,53 @@
                 border-radius: 2px;
                 font-size: 0.75rem;
             }
+
+            .install-steps {
+                list-style: none;
+                counter-reset: steps;
+                padding: 0;
+                margin: 0;
+            }
+
+            .install-steps li {
+                counter-increment: steps;
+                display: flex;
+                gap: 14px;
+                margin-bottom: 18px;
+                font-size: 0.8125rem;
+                color: var(--muted);
+                line-height: 1.9;
+            }
+
+            .install-steps li:last-child {
+                margin-bottom: 0;
+            }
+
+            .install-steps li::before {
+                content: counter(steps);
+                flex-shrink: 0;
+                width: 20px;
+                height: 20px;
+                background: var(--dim);
+                border: 1px solid var(--border);
+                border-radius: 2px;
+                font-size: 0.6875rem;
+                color: var(--yellow);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 3px;
+            }
+
+            .install-steps .step-body {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .install-steps pre {
+                margin-top: 8px;
+                margin-bottom: 0;
+            }
         </style>
     </head>
 
@@ -639,34 +686,78 @@
                 </div>
 
                 <div class="install-panel active" id="tab-macos">
-                    <p>Unzip the download, then copy the plugin file to the correct folder:</p>
-                    <p class="path-label">CLAP</p>
-                    <pre>~/Library/Audio/Plug-Ins/CLAP/Garble.clap</pre>
-                    <p class="path-label">VST3</p>
-                    <pre>~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
-                    <p>To get there in Finder, press <code>Shift ⌘ G</code> (or go to <code>Go → Go to Folder…</code>) and paste the path. If the <code>CLAP</code> or <code>VST3</code> folder doesn't exist yet, create it before dropping the file in.</p>
-                    <p style="margin-top: 10px;">macOS will block Garble because it isn't signed. Open Terminal and run whichever line matches what you installed:</p>
-                    <pre style="margin-top: 10px;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
+                    <ol class="install-steps">
+                        <li>
+                            <div class="step-body">Double-click the downloaded <code>.zip</code> to unzip it. You'll get a file called <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).</div>
+                        </li>
+                        <li>
+                            <div class="step-body">
+                                Open Finder. In the menu bar, click <code>Go → Go to Folder…</code> (or press <code>Shift ⌘ G</code>). Paste the folder for the format you want to install:
+                                <pre>~/Library/Audio/Plug-Ins/CLAP/
+~/Library/Audio/Plug-Ins/VST3/</pre>
+                                If the folder doesn't exist, Finder will say so — just go up one level and create a new folder with that name.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-body">Drag the plugin file into that folder.</div>
+                        </li>
+                        <li>
+                            <div class="step-body">
+                                macOS will block Garble from running because it isn't signed with an Apple certificate. This is normal for indie plugins. To clear it, open Terminal (press <code>⌘ Space</code>, type <code>Terminal</code>, press Enter). Then copy and paste whichever line matches what you installed, and press Enter:
+                                <pre>xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
 xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
-                    <p>You only need to do this once. Then rescan plugins in your DAW.</p>
+                                You only need to do this once.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-body">Open your DAW and rescan for plugins. Garble should appear.</div>
+                        </li>
+                    </ol>
                 </div>
 
                 <div class="install-panel" id="tab-linux">
-                    <p>Unzip the download, then copy the plugin file to the correct folder. Create the folder if it doesn't exist yet.</p>
-                    <p class="path-label">CLAP</p>
-                    <pre>~/.clap/Garble.clap</pre>
-                    <p class="path-label">VST3</p>
-                    <pre>~/.vst3/Garble.vst3</pre>
-                    <p>Rescan plugins in your DAW and Garble should appear.</p>
+                    <ol class="install-steps">
+                        <li>
+                            <div class="step-body">Extract the downloaded <code>.zip</code>. You'll get a file called <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).</div>
+                        </li>
+                        <li>
+                            <div class="step-body">
+                                Open your file manager and go to your home folder. The destination folders are hidden by default because their names start with a dot — enable "Show Hidden Files" first (usually <code>Ctrl H</code> or in the View menu). Then navigate into:
+                                <pre>~/.clap/
+~/.vst3/</pre>
+                                If the folder doesn't exist, create it.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-body">Copy the plugin file into that folder.</div>
+                        </li>
+                        <li>
+                            <div class="step-body">Open your DAW and rescan for plugins. Garble should appear.</div>
+                        </li>
+                    </ol>
+                    <p style="margin-top: 18px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px;">Prefer the terminal? <code>mkdir -p ~/.clap &amp;&amp; cp Garble.clap ~/.clap/</code></p>
                 </div>
 
                 <div class="install-panel" id="tab-windows">
-                    <p>Unzip the download. The standard locations are:</p>
-                    <p class="path-label">VST3</p>
-                    <pre>C:\Program Files\Common Files\VST3\Garble.vst3</pre>
-                    <p class="path-label">CLAP</p>
-                    <pre>C:\Program Files\Common Files\CLAP\Garble.clap</pre>
-                    <p>Some DAWs scan a different folder — check your DAW's plugin settings if Garble doesn't appear after a rescan. I don't have a Windows machine so I haven't been able to test this myself.</p>
+                    <ol class="install-steps">
+                        <li>
+                            <div class="step-body">Right-click the downloaded <code>.zip</code> and choose <code>Extract All</code>. You'll get a file called <code>Garble.vst3</code> or <code>Garble.clap</code>.</div>
+                        </li>
+                        <li>
+                            <div class="step-body">
+                                Open File Explorer. Click in the address bar at the top, paste the folder path for the format you want, and press Enter:
+                                <pre>C:\Program Files\Common Files\VST3\
+C:\Program Files\Common Files\CLAP\</pre>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-body">Copy the plugin file into that folder. Windows may ask for administrator permission — click Yes.</div>
+                        </li>
+                        <li>
+                            <div class="step-body">Open your DAW and rescan for plugins. If Garble doesn't appear, check your DAW's plugin settings to see which folders it scans.</div>
+                        </li>
+                    </ol>
+                    <p style="margin-top: 18px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px;">I don't have a Windows machine, so I haven't been able to test this myself. If something doesn't work, <a href="https://github.com/nis057489/garble/issues" target="_blank" rel="noopener noreferrer" style="color: var(--text);">let me know on GitHub</a>.</p>
                 </div>
             </div>
 
