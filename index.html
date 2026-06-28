@@ -639,12 +639,13 @@
                 </div>
 
                 <div class="install-panel active" id="tab-macos">
-                    <p>Unzip the download, then copy the plugin file to the correct folder. Create the folder if it doesn't exist yet.</p>
+                    <p>Unzip the download, then copy the plugin file to the correct folder:</p>
                     <p class="path-label">CLAP</p>
                     <pre>~/Library/Audio/Plug-Ins/CLAP/Garble.clap</pre>
                     <p class="path-label">VST3</p>
                     <pre>~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
-                    <p>macOS will block Garble because it isn't signed. Open Terminal and run whichever line matches what you installed:</p>
+                    <p>To get there in Finder, press <code>Shift ⌘ G</code> (or go to <code>Go → Go to Folder…</code>) and paste the path. If the <code>CLAP</code> or <code>VST3</code> folder doesn't exist yet, create it before dropping the file in.</p>
+                    <p style="margin-top: 10px;">macOS will block Garble because it isn't signed. Open Terminal and run whichever line matches what you installed:</p>
                     <pre style="margin-top: 10px;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
 xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                     <p>You only need to do this once. Then rescan plugins in your DAW.</p>
