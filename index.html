@@ -350,6 +350,94 @@
                     animation: none !important;
                 }
             }
+
+            /* ── INSTALL TABS ── */
+            .install-tabs {
+                margin-top: 40px;
+                max-width: 480px;
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                overflow: hidden;
+                background: var(--surface);
+            }
+
+            .install-tab-bar {
+                display: flex;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .install-tab {
+                background: none;
+                border: none;
+                border-right: 1px solid var(--border);
+                color: var(--muted);
+                font-family: var(--mono);
+                font-size: 0.6875rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: color 0.12s, background 0.12s;
+            }
+
+            .install-tab:last-child {
+                border-right: none;
+            }
+
+            .install-tab:hover {
+                color: var(--text);
+                background: var(--dim);
+            }
+
+            .install-tab.active {
+                color: var(--yellow);
+                background: var(--dim);
+            }
+
+            .install-panel {
+                padding: 24px 28px;
+                display: none;
+            }
+
+            .install-panel.active {
+                display: block;
+            }
+
+            .install-panel p {
+                font-size: 0.8125rem;
+                color: var(--muted);
+                line-height: 1.9;
+            }
+
+            .install-panel .path-label {
+                font-size: 0.6875rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: var(--blue);
+                margin: 14px 0 6px;
+            }
+
+            .install-panel .path-label:first-child {
+                margin-top: 0;
+            }
+
+            .install-panel pre {
+                font-size: 0.75rem;
+                color: var(--text);
+                background: var(--dim);
+                border-radius: 3px;
+                padding: 10px 14px;
+                overflow-x: auto;
+                line-height: 1.6;
+                margin-bottom: 14px;
+            }
+
+            .install-panel code {
+                background: var(--dim);
+                padding: 1px 5px;
+                border-radius: 2px;
+                font-size: 0.75rem;
+            }
         </style>
     </head>
 
@@ -543,21 +631,42 @@
             <span class="btn-note" style="margin-top: 18px;">
                 CLAP: Bitwig, FL Studio 21+, Reaper &nbsp;·&nbsp; VST3: Ableton Live and most other hosts
             </span>
-            <div
-                style="margin-top: 40px; border: 1px solid var(--border); border-radius: 4px; padding: 24px 28px; max-width: 480px; background: var(--surface);">
-                <div
-                    style="font-size: 0.6875rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px;">
-                    macOS install note</div>
-                <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.9;">
-                    macOS will warn that it can't verify Garble because it isn't signed with an Apple certificate.
-                    To clear this, open Terminal and run:
-                </p>
-                <pre
-                    style="margin: 14px 0; font-size: 0.75rem; color: var(--text); background: var(--dim); border-radius: 3px; padding: 12px 14px; overflow-x: auto; line-height: 1.6;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
+            <div class="install-tabs">
+                <div class="install-tab-bar">
+                    <button class="install-tab active" data-tab="macos">macOS</button>
+                    <button class="install-tab" data-tab="linux">Linux</button>
+                    <button class="install-tab" data-tab="windows">Windows</button>
+                </div>
+
+                <div class="install-panel active" id="tab-macos">
+                    <p>Unzip the download, then copy the plugin file to the correct folder. Create the folder if it doesn't exist yet.</p>
+                    <p class="path-label">CLAP</p>
+                    <pre>~/Library/Audio/Plug-Ins/CLAP/Garble.clap</pre>
+                    <p class="path-label">VST3</p>
+                    <pre>~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
+                    <p>macOS will block Garble because it isn't signed. Open Terminal and run whichever line matches what you installed:</p>
+                    <pre style="margin-top: 10px;">xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/CLAP/Garble.clap
 xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
-                <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.9;">
-                    Run whichever lines match the format you installed. You only need to do this once.
-                </p>
+                    <p>You only need to do this once. Then rescan plugins in your DAW.</p>
+                </div>
+
+                <div class="install-panel" id="tab-linux">
+                    <p>Unzip the download, then copy the plugin file to the correct folder. Create the folder if it doesn't exist yet.</p>
+                    <p class="path-label">CLAP</p>
+                    <pre>~/.clap/Garble.clap</pre>
+                    <p class="path-label">VST3</p>
+                    <pre>~/.vst3/Garble.vst3</pre>
+                    <p>Rescan plugins in your DAW and Garble should appear.</p>
+                </div>
+
+                <div class="install-panel" id="tab-windows">
+                    <p>Unzip the download. The standard locations are:</p>
+                    <p class="path-label">VST3</p>
+                    <pre>C:\Program Files\Common Files\VST3\Garble.vst3</pre>
+                    <p class="path-label">CLAP</p>
+                    <pre>C:\Program Files\Common Files\CLAP\Garble.clap</pre>
+                    <p>Some DAWs scan a different folder — check your DAW's plugin settings if Garble doesn't appear after a rescan. I don't have a Windows machine so I haven't been able to test this myself.</p>
+                </div>
             </div>
 
             <div
@@ -691,6 +800,16 @@ xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                     });
                 }, { threshold: 0.3 });
                 observer.observe(heroCanvas);
+
+                // ── INSTALL TABS ──────────────────────────────────────────────
+                document.querySelectorAll('.install-tab').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        document.querySelectorAll('.install-tab').forEach(function (t) { t.classList.remove('active'); });
+                        document.querySelectorAll('.install-panel').forEach(function (p) { p.classList.remove('active'); });
+                        btn.classList.add('active');
+                        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                    });
+                });
 
             })();
         </script>
