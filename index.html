@@ -596,21 +596,28 @@
 
         <!-- HERO TEXT -->
         <section class="hero">
-            <div class="hero-eyebrow">Free wavelet distortion plugin</div>
+            <div class="hero-eyebrow">Creative Audio Corruption Effect</div>
+
             <h1 class="hero-title">W<em>a</em>vecrusher</h1>
+
             <p class="hero-sub">
-                I made <strong>Garble</strong> from a compression algorithm I developed
-                during my PhD research.<br><br>
-                The original version was for robots communicating over unreliable
-                network links. This version runs on audio.<br><br>
-                It is close to bitcrushing in spirit, but it does not just reduce
-                the sample rate uniformly. Garble breaks the signal into wavelet
-                approximations, then lets you crush, quantise, and remove detail
-                at different resolutions. This distinction is why I call it a <strong>wavecrusher</strong> rather than a
-                bitcrusher.
+                <strong>Garble</strong> separates sound into layers of broad structure
+                and fine detail, then lets you crush, quantise, or remove those layers
+                independently.<br><br>
+
+                I adapted it from a compression algorithm developed during my PhD
+                research for robots communicating over unreliable networks.<br><br>
+
+                It is close to bitcrushing in spirit, but the failure mode is different.
+                Under the hood, those layers are wavelet approximations—hence
+                <strong>wavecrusher</strong>.
             </p>
+
             <a class="btn-download" href="#download">Download Free</a>
-            <span class="btn-note">CLAP, VST3 &nbsp;·&nbsp; Windows · macOS · Linux</span>
+
+            <span class="btn-note">
+                CLAP, VST3 &nbsp;·&nbsp; Windows · macOS · Linux
+            </span>
         </section>
 
         <hr class="divider" />
@@ -618,120 +625,122 @@
         <!-- PLUGIN PREVIEW -->
         <section class="plugin-preview" style="padding-top: 64px;">
             <div class="section-label">The plugin</div>
-            <img src="img/screenshot.png" alt="Garble plugin" />
+            <img src="img/screenshot.png" alt="Garble plugin interface" />
         </section>
 
         <hr class="divider" />
 
-        <!-- LORE -->
+        <!-- ORIGIN -->
         <section class="lore">
             <div class="section-label">Origin</div>
+
             <p>
                 <strong>I originally built this technology for robotics research.</strong>
-                The problem was communication over unreliable links: robots still
-                need useful information when the network is slow, noisy, intermittent,
-                or degraded.
+                Robots still need useful information when their network connection is
+                slow, intermittent, or degraded. The compression algorithm preserves
+                the broad structure of a signal while discarding progressively finer
+                detail as bandwidth becomes limited.
             </p>
+
             <p>
-                The compression approach keeps the coarse structure of a signal and
-                throws away detail when bandwidth is limited. At some point I wondered
-                what that would sound like on music. Garble is the result.
+                At some point, I wondered what that kind of failure would sound like
+                on music. Garble is the result.
             </p>
+
             <p>
-                It uses a <strong>Haar wavelet transform</strong> to split audio into
-                coarse averages and detail bands. Then it quantises and drops parts
-                of that representation before reconstructing the signal.
+                It uses a <strong>Haar wavelet transform</strong> to separate audio into
+                coarse averages and detail bands. Garble quantises or removes parts of
+                that representation, then reconstructs the signal from what remains.
             </p>
+
             <p>
-                The prism visuals are decorative, but they are not just decoration.
-                They are derived from the same wavelet-compression logic that powers
-                the plugin, so the animation is an echo of the algorithm rather than
-                pure ornament.
-            </p>
-            <p>
-                So yes, it can feel related to a bitcrusher. But the failure mode is
-                different. A normal bitcrusher reduces sample resolution directly.
-                Garble works on approximations of the signal. As you push it harder,
-                the fine detail disappears first and the larger-scale movement can remain.
+                The prism visuals are generated from the same wavelet-compression logic.
+                They are an echo of the algorithm rather than an unrelated animation.
             </p>
         </section>
 
         <hr class="divider" />
 
-        <!-- WHAT IT IS -->
+        <!-- WHAT IT DOES DIFFERENTLY -->
         <section class="what" style="padding-top: 64px;">
             <div class="section-label">What it does differently</div>
 
             <div class="what-block">
                 <h3>Not normal bitcrushing</h3>
                 <p>
-                    A bitcrusher usually applies the same kind of reduction directly
-                    to the sample stream. Garble first transforms the signal into
-                    wavelet coefficients, then crushes that representation before
-                    decoding it back to audio.
+                    A conventional bitcrusher reduces the resolution of the sample
+                    stream directly. Garble first transforms the sound into layers at
+                    different resolutions, damages that representation, and then
+                    decodes it back into audio.
                 </p>
             </div>
 
             <div class="what-block">
-                <h3>Resolution-based distortion</h3>
+                <h3>Detail disappears by scale</h3>
                 <p>
-                    Think of it less like lowering the bit depth of a waveform and more
-                    like listening to a progressively simplified version of the sound.
-                    The broad contour, envelope, and energy can survive while smaller
-                    detail is removed or quantised.
+                    As you push Garble harder, fine texture can fall away while the
+                    broader contour, envelope, and energy of the sound remain. The
+                    result is less like uniformly lowering bit depth and more like
+                    hearing an increasingly incomplete reconstruction.
                 </p>
             </div>
 
             <div class="what-block">
-                <h3>Useful on resampling chains</h3>
+                <h3>Different material fails differently</h3>
                 <p>
-                    On some material it behaves like a broken codec. On other material
-                    it becomes a rough textural filter. On dense mixes, you can sometimes
-                    hear the highest-energy parts of the signal survive longest as the
-                    rest falls away.
+                    Drums can fracture into sparse transients. Synths can become rough
+                    and hollow. Dense sounds may retain their strongest movements while
+                    quieter details collapse. Depending on the source, Garble can
+                    resemble a broken codec, a damaged transmission, or a textural filter.
                 </p>
             </div>
 
             <div class="clap-block">
-                <h3>CLAP plugin format</h3>
+                <h3>Open-source and cross-platform</h3>
                 <p>
-                    Garble is made with <a href="https://github.com/free-audio/clap" target="_blank"
-                        rel="noopener noreferrer">CLAP</a>. It is free, open-source, and cross-platform.
-                    It runs on Windows, macOS, and Linux. A VST3 version is provided, but it is actually a wrapped CLAP
-                    plugin.
+                    Garble is built as a
+                    <a href="https://github.com/free-audio/clap" target="_blank" rel="noopener noreferrer">CLAP
+                        plugin</a>
+                    and runs on Windows, macOS, and Linux. A wrapped VST3 version is
+                    included for hosts without CLAP support.
                 </p>
             </div>
         </section>
 
         <hr class="divider" />
 
-        <!-- PARAMS -->
+        <!-- PARAMETERS -->
         <section class="params" style="padding-top: 64px;">
             <div class="section-label" style="padding-bottom: 20px;">Parameters</div>
+
             <div class="params-grid">
                 <div class="param-cell">
                     <div class="param-name">Levels</div>
                     <div class="param-range">1 — 10</div>
-                    <div class="param-desc">Depth of the wavelet decomposition. Higher values give Garble more
-                        resolution layers to work with.</div>
+                    <div class="param-desc">
+                        Sets how many resolution layers Garble can process.
+                    </div>
                 </div>
+
                 <div class="param-cell">
                     <div class="param-name">Quantise</div>
                     <div class="param-range">0.00 — 1.00</div>
-                    <div class="param-desc">Controls how aggressively small wavelet coefficients are pushed toward zero.
+                    <div class="param-desc">
+                        Controls how aggressively smaller wavelet coefficients are
+                        pushed toward zero.
                     </div>
                 </div>
+
                 <div class="param-cell">
                     <div class="param-name">Ratio</div>
                     <div class="param-range">1 — 32</div>
-                    <div class="param-desc">Compression target before quantisation. Higher values make the
-                        reconstruction more damaged.</div>
+                    <div class="param-desc">
+                        Sets the compression target. Higher values leave less
+                        information available for reconstruction.
+                    </div>
                 </div>
             </div>
         </section>
-
-        <hr class="divider" />
-
         <!-- EXAMPLES -->
         <section class="examples" style="padding-top: 64px;">
             <div class="section-label">Examples</div>
@@ -846,7 +855,8 @@
                 <div class="install-panel active" id="tab-macos">
                     <ol class="install-steps">
                         <li>
-                            <div class="step-body">Double-click the downloaded <code>.zip</code> to unzip it. You'll get
+                            <div class="step-body">Double-click the downloaded <code>.zip</code> to unzip it. You'll
+                                get
                                 a file called <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).</div>
                         </li>
                         <li>
@@ -855,7 +865,8 @@
                                 <code>Shift ⌘ G</code>). Paste the folder for the format you want to install:
                                 <pre>~/Library/Audio/Plug-Ins/CLAP/
 ~/Library/Audio/Plug-Ins/VST3/</pre>
-                                If the folder doesn't exist, Finder will say so — just go up one level and create a new
+                                If the folder doesn't exist, Finder will say so — just go up one level and create a
+                                new
                                 folder with that name.
                             </div>
                         </li>
@@ -864,7 +875,8 @@
                         </li>
                         <li>
                             <div class="step-body">
-                                macOS will block Garble from running because it isn't signed with an Apple certificate.
+                                macOS will block Garble from running because it isn't signed with an Apple
+                                certificate.
                                 This is normal for indie plugins. To clear it, open Terminal (press
                                 <code>⌘ Space</code>, type <code>Terminal</code>, press Enter). Then copy and paste
                                 whichever line matches what you installed, and press Enter:
@@ -882,14 +894,17 @@ xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                 <div class="install-panel" id="tab-linux">
                     <ol class="install-steps">
                         <li>
-                            <div class="step-body">Extract the downloaded <code>.zip</code>. You'll get a file called
+                            <div class="step-body">Extract the downloaded <code>.zip</code>. You'll get a file
+                                called
                                 <code>Garble.clap</code> or <code>Garble.vst3</code> (or both).
                             </div>
                         </li>
                         <li>
                             <div class="step-body">
-                                Open your file manager and go to your home folder. The destination folders are hidden by
-                                default because their names start with a dot — enable "Show Hidden Files" first (usually
+                                Open your file manager and go to your home folder. The destination folders are
+                                hidden by
+                                default because their names start with a dot — enable "Show Hidden Files" first
+                                (usually
                                 <code>Ctrl H</code> or in the View menu). Then navigate into:
                                 <pre>~/.clap/
 ~/.vst3/</pre>
@@ -918,7 +933,8 @@ xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Garble.vst3</pre>
                         </li>
                         <li>
                             <div class="step-body">
-                                Open File Explorer. Click in the address bar at the top, paste the folder path for the
+                                Open File Explorer. Click in the address bar at the top, paste the folder path for
+                                the
                                 format you want, and press Enter:
                                 <pre>C:\Program Files\Common Files\VST3\
 C:\Program Files\Common Files\CLAP\</pre>
@@ -929,13 +945,15 @@ C:\Program Files\Common Files\CLAP\</pre>
                                 administrator permission — click Yes.</div>
                         </li>
                         <li>
-                            <div class="step-body">Open your DAW and rescan for plugins. If Garble doesn't appear, check
+                            <div class="step-body">Open your DAW and rescan for plugins. If Garble doesn't appear,
+                                check
                                 your DAW's plugin settings to see which folders it scans.</div>
                         </li>
                     </ol>
                     <p
                         style="margin-top: 18px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px;">
-                        I don't have a Windows machine, so I haven't been able to test this myself. If something doesn't
+                        I don't have a Windows machine, so I haven't been able to test this myself. If something
+                        doesn't
                         work, <a href="https://github.com/nis057489/garble/issues" target="_blank"
                             rel="noopener noreferrer" style="color: var(--text);">let me know on GitHub</a>.</p>
                 </div>
@@ -950,9 +968,9 @@ C:\Program Files\Common Files\CLAP\</pre>
                     This is pre-1.0 software. I'm not a professional audio programmer —
                     I'm a
                     robotics researcher with a
-                    music hobby who ported my algorithm to audio because I had seen how it distorts volumetric data, and thought it would sound cool on audio. 
-                    I would be remissed if I didn't mention Airwindows whose work retrospectively gave me a push to to publish this plugin after seeing them apply a Kalman filter to audio as an effect. I've tested Garble as
-                    thoroughly as I can, but it may have bugs, and it may even crash your DAW. I don't have a Windows
+                    music hobby who ported my algorithm to audio because I thought why not. I've tested Garble as
+                    thoroughly as I can, but it may have bugs, and it may even crash your DAW. I don't have a
+                    Windows
                     machine so that version is totally untested by me. If something goes wrong, please
                     <a href="https://github.com/nis057489/garble/issues" target="_blank" rel="noopener noreferrer"
                         style="color: var(--text);">let me know on GitHub</a> and I'll do my best to fix it.
