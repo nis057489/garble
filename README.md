@@ -6,9 +6,9 @@ A free wavelet distortion plugin for CLAP and VST3 hosts.
 
 ---
 
-Garble applies a Haar wavelet transform to audio, then quantises and drops detail coefficients before reconstructing the signal. The result is somewhere between a bitcrusher and a broken codec — but the degradation happens at different resolutions rather than uniformly across the sample stream.
+Ever wanted to make your music sound grainy like an old JPEG being downloaded over slow dialup internet? Garble lets you do that. The result is somewhere between a bitcrusher and a broken codec but the degradation happens at different resolutions rather than uniformly across the sample stream. Garble applies a Haar wavelet transform to audio, then quantizes and drops detail coefficients before reconstructing the signal
 
-Available for Windows, macOS, and Linux.
+Available for Windows, macOS, and Linux and runs in almost any DAW.
 
 ## Issues
 
