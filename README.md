@@ -1,6 +1,6 @@
 # Garble — Wavecrusher
 
-A free wavelet distortion plugin for CLAP and VST3 hosts.
+A free wavelet distortion audio effect plugin for CLAP and VST3 hosts.
 
 **[Download and learn more at the website →](https://nis057489.github.io/garble)**
 
